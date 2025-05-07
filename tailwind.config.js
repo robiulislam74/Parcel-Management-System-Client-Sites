@@ -12,6 +12,9 @@ export default {
         thirdColor: '#94B4C1',
         fourthColor: '#ECEFCA'
       },
+      backgroundImage:{
+        bgImg: "url('https://i.ibb.co.com/C5HS2Tsx/pexels-tomfisk-3856433.jpg')"
+      }
     },
   },
   plugins: [
