@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+    font-family: "Roboto", sans-serif;
+    background-color: #FAFAF5;
+}
+
+ .active li{
+    color: rgb(0, 0, 255);
+    font-weight: 600;
+    text-decoration: underline;
+    /* 
+    padding: 4px 6px;
+    border-radius: 6px; */
+    /* background-color: #E5D9F2; */
+  }
+  .drop .active li{
+    color: blue;
+  }
+  
