@@ -7,10 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#213448',
-        secondaryColor: '#547792',
+        // primaryColor: '#212121',
+        secondaryColor: '#F5F7FA',
         thirdColor: '#94B4C1',
-        fourthColor: '#ECEFCA'
+        fourthColor: '#ECEFCA',
+        textColor: '#212121',
+        pinkRed: '#ff3e02',
+        borderColor: '#E0E0E0',
+        hoverColor: '#EF4444',
+        cardBg: '#FFEFEB'
       },
       backgroundImage:{
         bgImg: "url('https://i.ibb.co.com/C5HS2Tsx/pexels-tomfisk-3856433.jpg')"
@@ -20,6 +25,9 @@ export default {
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ['light', 'synthwave'], // Add or customize themes here
+  },
 }
 
 

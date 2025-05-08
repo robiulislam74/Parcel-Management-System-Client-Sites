@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 const MainLayOut = () => {
     return (
         <>
-            <div>
+            <div className='sticky top-0 z-50'>
                 <Navbar />
             </div>
             <div className=' min-h-[calc(100vh-409px)]'>

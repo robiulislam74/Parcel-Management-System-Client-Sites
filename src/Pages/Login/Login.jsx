@@ -78,7 +78,7 @@ const Login = () => {
 
                             <button
                                 type="submit"
-                                className="w-full bg-primaryColor text-white py-2 rounded-md hover:bg-secondaryColor transition"
+                                className="w-full bg-pinkRed text-white py-2 rounded-md hover:bg-hoverColor transition"
                             >
                                 Login
                             </button>
@@ -90,7 +90,7 @@ const Login = () => {
 
                             <p className="text-sm text-center mt-4 text-gray-600">
                                 Don’t have an account?{' '}
-                                <Link to="/register" className="text-primaryColor hover:text-secondaryColor font-semibold hover:underline">
+                                <Link to="/register" className="text-pinkRed hover:text-hoverColor font-semibold hover:underline">
                                     Register
                                 </Link>
                             </p>

@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 body{
     font-family: "Roboto", sans-serif;
@@ -10,7 +11,7 @@ body{
 }
 
  .active li{
-    color: rgb(0, 0, 255);
+    color: #ff3e02;
     font-weight: 600;
     text-decoration: underline;
     /* 
