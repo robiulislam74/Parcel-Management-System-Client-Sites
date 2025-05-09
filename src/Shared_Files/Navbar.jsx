@@ -127,7 +127,16 @@ const Navbar = () => {
                                 </div>
                                 :
                                 // <Link to={'/login'} className="px-5 py-2 rounded-md font-semibold text-base text-white bg-pinkRed">Join Us</Link>
-                                <Link to={'/login'}><Button /></Link>
+                                <Link to={'/login'}>
+                                    <Button
+                                        text={'Log In'}
+                                        bgColor={'bg-red-100'}
+                                        overBgColor={'bg-pinkRed'}
+                                        textColor={'text-black'}
+                                        groupHover={'group-hover:text-white'}
+                                        padding={'px-4 py-2'}
+                                    />
+                                </Link>
                         }
                     </div>
                     <div>
