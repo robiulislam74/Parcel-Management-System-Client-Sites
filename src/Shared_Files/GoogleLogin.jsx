@@ -1,29 +1,27 @@
-import React, { useContext } from 'react'
+
 import { FcGoogle } from "react-icons/fc";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../Context/AuthProvider/AuthProvider';
+import UseContext from "../Hooks/UseContext";
 
 const GoogleLogin = () => {
-    const {googleWithLogin}=useContext(AuthContext)
+    const {googleWithLogin}=UseContext()
     const navigate = useNavigate()
-    const location = useLocation()
 
     const handleGoogleBtn =()=>{
-      googleWithLogin()
-        .then(result=>{
-          const photoURL = result.photoURL;
-          console.log("URL:",photoURL)
-            navigate('/')
+       googleWithLogin()
+        .then( (result)=>{
+          console.log(("result:",result))
+          navigate('/')
              Swal.fire({
                       position: "center",
                       icon: "success",
-                      title: "Login Successful!",
+                      title: "Google Login Successful!",
                       showConfirmButton: false,
                       timer: 2000
                     });
-        }).catch((error)=>{
-        })
+                  }).catch((error)=>{
+                  })
     }
   return (
     <>

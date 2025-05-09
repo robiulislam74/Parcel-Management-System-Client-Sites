@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Bell } from 'lucide-react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../Context/AuthProvider/AuthProvider'
 import Button from '../components/Button';
+import UseContext from '../Hooks/UseContext';
 // #195266
 const Navbar = () => {
-    const { user, signOutFun } = useContext(AuthContext)
+    const { user, signOutFun } = UseContext()
     const navigate = useNavigate()
 
     const handleLogOutBtn = (e) => {
@@ -58,7 +58,7 @@ const Navbar = () => {
                         </div>
                         <div className=" text-center">
                             <img className='mx-auto w-12' src='https://i.ibb.co.com/k6sh80G3/login.png' alt="" />
-                            <p className='font-extrabold text-xs text-center uppercase text-primaryColor'>ParcelPro</p>
+                            <p className='font-extrabold text-xs text-center uppercase text-primaryColor'>Parcel<span className='text-pinkRed'>Pro</span></p>
                         </div>
                     </div>
                     <div className="navbar-center hidden lg:flex">
@@ -100,7 +100,7 @@ const Navbar = () => {
                                 ?
                                 <div className="dropdown dropdown-end">
                                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                        <div data-tooltip-id="my-tooltip-1" className=" ring-offset-base-100 w-12  rounded-full ring ring-offset">
+                                        <div data-tooltip-id="my-tooltip-1" className=" ring-offset-thirdColor w-12  rounded-full ring ring-offset">
                                             <img
                                                 alt="Tailwind CSS Navbar component"
                                                 src={user?.photoURL} />

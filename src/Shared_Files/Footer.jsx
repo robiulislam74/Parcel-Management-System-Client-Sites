@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex items-center justify-center gap-3 mb-6">
           <div className=" text-center">
             <img className='mx-auto w-20' src='https://i.ibb.co.com/k6sh80G3/login.png' alt="" />
-            <p className='font-extrabold text-sm text-center uppercase text-primaryColor'>ParcelPro</p>
+            <p className='font-extrabold text-sm text-center uppercase text-primaryColor'>Parcel<span className='text-pinkRed'>Pro</span></p>
           </div>
           {/* <div>
               <h2 className="text-xl font-extrabold uppercase">ParcelPro</h2>

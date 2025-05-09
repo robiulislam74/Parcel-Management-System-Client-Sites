@@ -3,7 +3,8 @@ import MainLayOut from "../MainLayOut/MainLayOut";
 import Home from "../Pages/Home/Home/Home";
 import Registration from "../Pages/Registration/Registration";
 import Login from "../Pages/Login/Login";
-import DashBoard from "../Pages/Dashboard/DashBoard";
+import MainDashboardLayOut from "../MainLayOut/MainDashboardLayOut";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -15,8 +16,10 @@ const router = createBrowserRouter([
             element: <Home/>
         },
         {
-          path: 'dashboard',
-          element: <DashBoard/>
+          path: '/dashboard',
+          element: <PrivateRoutes>
+            <MainDashboardLayOut/>
+          </PrivateRoutes>
         }
       ],
     },

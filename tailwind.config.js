@@ -12,7 +12,7 @@ export default {
         thirdColor: '#94B4C1',
         fourthColor: '#ECEFCA',
         textColor: '#212121',
-        pinkRed: '#ff3e02',
+        pinkRed: '#FF3C57',
         borderColor: '#E0E0E0',
         hoverColor: '#EF4444',
         cardBg: '#FFEFEB'

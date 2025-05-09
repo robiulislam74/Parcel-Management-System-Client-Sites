@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import GoogleLogin from '../../Shared_Files/GoogleLogin';
-import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import Navbar from '../../Shared_Files/Navbar';
 import Footer from '../../Shared_Files/Footer';
+import UseContext from '../../Hooks/UseContext';
 
 const Login = () => {
-    const { signInUser} = useContext(AuthContext)
+    const { signInUser} = UseContext()
     const navigate = useNavigate()
 
     const handleLogin = (e) => {

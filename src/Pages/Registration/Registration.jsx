@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import { updateProfile } from 'firebase/auth';
 import auth from '../../FireBase/firebase.config';
@@ -9,10 +8,11 @@ import Footer from '../../Shared_Files/Footer';
 import { format } from 'date-fns';
 
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import UseContext from '../../Hooks/UseContext';
 
 const Registration = () => {
   const [userType, setUserType] = useState('User');
-  const { createSignUp } = useContext(AuthContext)
+  const { createSignUp } = UseContext()
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
 
@@ -40,7 +40,7 @@ const Registration = () => {
           displayName: registerData.name,
           photoURL: registerData.photoURL
         }).then(async () => {
-          axiosPublic.post('/users',userInfo)
+          await axiosPublic.post('/users',userInfo)
           Swal.fire({
             position: "center",
             icon: "success",
