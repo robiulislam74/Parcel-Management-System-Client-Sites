@@ -3,25 +3,42 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UseContext from "../Hooks/UseContext";
+import { format } from "date-fns";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
     const {googleWithLogin}=UseContext()
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
+
+     const now = new Date();
+      const formattedDate = format(now, "yyyy-MM-dd"); 
 
     const handleGoogleBtn =()=>{
-       googleWithLogin()
-        .then( (result)=>{
-          console.log(("result:",result))
-          navigate('/')
-             Swal.fire({
-                      position: "center",
-                      icon: "success",
-                      title: "Google Login Successful!",
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
-                  }).catch((error)=>{
-                  })
+       googleWithLogin().then(async (result)=>{
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Google Login Successful!",
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+        const userInfo = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          photoURL: result?.user?.photoURL,
+          date: formattedDate,
+          role: "User"
+        }
+        await axiosPublic.post('/users',userInfo).then(user=>{
+          console.log('user',user)
+        })
+
+      }).catch((error)=>{
+        console.log("ErrorNew:",error)
+      })
+      navigate('/')
     }
   return (
     <>

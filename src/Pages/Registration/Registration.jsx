@@ -61,6 +61,7 @@ const Registration = () => {
         const errorMessage = error.message;
         // ..
       });
+      e.target.reset()
   }
 
   return (
