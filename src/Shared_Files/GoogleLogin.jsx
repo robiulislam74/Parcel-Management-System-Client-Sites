@@ -23,7 +23,7 @@ const GoogleLogin = () => {
           showConfirmButton: false,
           timer: 2000
         });
-
+        navigate('/')
         const userInfo = {
           name: result?.user?.displayName,
           email: result?.user?.email,
@@ -38,7 +38,7 @@ const GoogleLogin = () => {
       }).catch((error)=>{
         console.log("ErrorNew:",error)
       })
-      navigate('/')
+      
     }
   return (
     <>
