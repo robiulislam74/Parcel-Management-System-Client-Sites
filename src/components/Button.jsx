@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'react-feather'; // or from 'react-icons/fi'
 
 const Button = ({text,bgColor,overBgColor,textColor,groupHover,padding,submit}) => {
     return (
-        <div className='relative group inline-block'>
+        <div className='relative group inline-block cursor-pointer'>
             <button
             type={submit}
              className={`overflow-hidden inline-flex items-center gap-2 ${padding}  ${textColor} ${groupHover} font-medium rounded-md  ${bgColor} transition duration-500`}>

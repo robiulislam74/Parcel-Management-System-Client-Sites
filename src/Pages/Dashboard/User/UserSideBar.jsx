@@ -3,11 +3,12 @@ import { BiMessageDetail } from "react-icons/bi";
 import { MdOutlineLocalShipping } from "react-icons/md";
 import { FaBoxOpen, FaUserCircle } from "react-icons/fa";
 import UseContext from "../../../Hooks/UseContext";
+import { NavLink } from 'react-router-dom'
 
 const UserSideBar = () => {
     const { user } = UseContext()
     return (
-        <div className="w-64 h-screen bg-white shadow-md p-4 pl-10 flex flex-col justify-between">
+        <div className="w-64 min-h-screen bg-white p-4 pl-10 flex flex-col justify-between">
             {/* Top Section */}
             <div>
                 {/* Logo */}
@@ -36,18 +37,24 @@ const UserSideBar = () => {
                             <FaTachometerAlt />
                             <span>Dashboard</span>
                         </li> */}
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100 cursor-pointer">
+                        <NavLink to={'parcelBooking'}>
+                            <li className="flex text-lg mb-3 items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100 cursor-pointer">
                             <FaBoxOpen />
                             <span>Book a Parcel</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100  cursor-pointer">
+                        </NavLink>
+                       <NavLink to={'myParcels'}>
+                         <li className="flex text-lg mb-3 items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100  cursor-pointer">
                             <MdOutlineLocalShipping />
                             <span>My Parcels</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100 cursor-pointer">
+                       </NavLink>
+                        <NavLink to={'myProfile'}>
+                            <li className="flex text-lg  items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100 cursor-pointer">
                             <FaUserCircle />
                             <span>My Profile</span>
                         </li>
+                        </NavLink>
                         <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition duration-100 cursor-pointer">
                             <MdOutlineLocalShipping />
                             <span>Tracking</span>
