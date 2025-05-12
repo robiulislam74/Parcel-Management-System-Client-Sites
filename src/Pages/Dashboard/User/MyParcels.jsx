@@ -8,6 +8,7 @@ import UseContext from "../../../Hooks/UseContext";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import ParcelUpdateForm from "../../../components/ParcelUpdateForm";
+import { ColorRing } from "react-loader-spinner";
 
 
 const MyParcels = () => {
@@ -19,18 +20,17 @@ const MyParcels = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   const [price, setPrice] = useState(0);
-  const [updateData,setUpdateData] = useState([])
-  const [parcelId,setParcelId]=useState('')
+  // const [updateData,setUpdateData] = useState([])
+  const [parcelId, setParcelId] = useState('')
 
 
-  const { data: bookedAllParcels, isLoading } = useQuery({
+  const { data: bookedAllParcels, isLoading,refetch } = useQuery({
     queryKey: ['bookedParcel'],
     queryFn: async () => {
       const res = await axiosSecure.get('/bookedParcel')
       return res?.data
     },
   })
-
 
   const {
     register,
@@ -62,12 +62,12 @@ const MyParcels = () => {
     console.log("Parcel Booked:", bookingData);
   }
 
-  const handleUpdate =async (id) => {
+  const handleUpdate = async (id) => {
     onOpenModal()
     setParcelId(id)
-    const  parcelData  = await axiosPublic.get(`/manageParcel/${id}`)
-    setUpdateData(parcelData?.data)
-    console.log("data:", updateData)
+    // const  parcelData  = await axiosPublic.get(`/manageParcel/${id}`)
+    // setUpdateData(parcelData?.data)
+    // console.log("data:", updateData)
   };
 
 
@@ -103,6 +103,20 @@ const MyParcels = () => {
     : bookedAllParcels.filter((item) => item.status.toLowerCase() === filterStatus.toLowerCase());
 
   return (
+    <div>
+    {
+      isLoading && <div className='min-h-[calc(100vh-88px)] max-w-full flex justify-center items-center'>
+      <ColorRing
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="color-ring-loading"
+        wrapperStyle={{}}
+        wrapperClass="color-ring-wrapper"
+        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+      />
+    </div>
+    }
     <>
       {/* Modal */}
       <Modal
@@ -130,8 +144,10 @@ const MyParcels = () => {
           //   />
           // })
           <ParcelUpdateForm
-          parcels={bookedAllParcels}
-          id={parcelId}
+            parcels={bookedAllParcels}
+            id={parcelId}
+            refetch={refetch}
+            onCloseModal={onCloseModal}
           />
         }
       </Modal>
@@ -218,6 +234,7 @@ const MyParcels = () => {
         </div>
       </div >
     </>
+    </div>
   );
 };
 
