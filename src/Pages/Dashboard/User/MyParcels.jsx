@@ -27,7 +27,7 @@ const MyParcels = () => {
   const { data: bookedAllParcels, isLoading,refetch } = useQuery({
     queryKey: ['bookedParcel'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/bookedParcel')
+      const res = await axiosSecure.get(`/bookedMyParcel/${user?.email}`)
       return res?.data
     },
   })
@@ -197,7 +197,10 @@ const MyParcels = () => {
                   <td className="p-2">{parcel.deliveryDate}</td>
                   <td className="p-2">{parcel.bookingDate}</td>
                   <td className="p-2">{parcel?.approximateDate || "Not Assigned"}</td>
-                  <td className="p-2 capitalize">{parcel.status}</td>
+                  <td className={`p-2 text-sm font-medium capitalize ${parcel.status === "Pending"
+                        ? " text-yellow-800"
+                        : " text-green-800"
+                        }`}>{parcel.status}</td>
                   <td className="p-2">{parcel.deliveryMenId || "Not Assigned"}</td>
                   <td className="p-2 space-x-2 flex flex-wrap justify-center">
                     <button

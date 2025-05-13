@@ -1,9 +1,19 @@
 import { FaBoxOpen, FaUserShield, FaMotorcycle, FaChartBar, FaCog, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import UseContext from "../../../Hooks/UseContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const AdminSideBar = () => {
-    const { user } = UseContext();
+    const { user,signOutFun } = UseContext();
+    const navigate = useNavigate()
+
+    const handleSignOut = ()=>{
+        signOutFun()
+        .then(() => {
+            navigate('/login')
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
 
     return (
         <div className="w-64 h-screen bg-white shadow-md p-4 pl-10 flex flex-col justify-between">
@@ -61,7 +71,7 @@ const AdminSideBar = () => {
                             <FaCog />
                             <span>Settings</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+                        <li onClick={handleSignOut} className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                             <FaSignOutAlt />
                             <span>Log out</span>
                         </li>

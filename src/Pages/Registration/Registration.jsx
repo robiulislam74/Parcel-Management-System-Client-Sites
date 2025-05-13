@@ -15,7 +15,6 @@ const Registration = () => {
   const { createSignUp } = UseContext()
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
-  const [uid,setUid] = useState('')
   const now = new Date();
   const formattedDate = format(now, "yyyy-MM-dd"); 
 
@@ -30,14 +29,11 @@ const Registration = () => {
       photoURL: registerData.photoURL,
       role: userType,
       date: formattedDate,
-      uid: uid
-
     }
-    console.log("userInfo:",userInfo)
+
 
     createSignUp(registerData.email, registerData.password)
       .then(async(userCredential) => {
-         setUid(userCredential?.user?.uid)
        await updateProfile(auth.currentUser, {
           displayName: registerData.name,
           photoURL: registerData.photoURL,
