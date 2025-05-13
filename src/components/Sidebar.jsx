@@ -8,11 +8,11 @@ import AdminSideBar from '../Pages/Dashboard/Admin/AdminSideBar'
 import DeliveryBoySideBar from '../Pages/Dashboard/DeliveryBoy/DeliveryBoySideBar'
 
 const Sidebar = () => {
-  const [isAdmin] = useAdmin()
+  const {isAdmin} = useAdmin()
   // console.log("Admin:",isAdmin)
-  const[isDeliveryMen] = useDeliveryMen()
+  const{isDeliveryMen} = useDeliveryMen()
   // console.log("deliveryMen",isDeliveryMen)
-  const[isUser] = useUser()
+  const {isUser} = useUser()
   // console.log("isUser",isUser)
   return (
     <div>

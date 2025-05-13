@@ -6,7 +6,7 @@ const useUser = () => {
   const { user } = UseContext()
     const axiosSecure = useAxiosSecure()
 
-    const { data: isUser } = useQuery({
+    const { data: isUser, isLoading } = useQuery({
         queryKey: [user?.email, "isUser"],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/user/${user?.email}`)
@@ -14,7 +14,7 @@ const useUser = () => {
         },
 
     })
-    return [isUser]
+    return {isUser, isLoading}
 }
 
 export default useUser

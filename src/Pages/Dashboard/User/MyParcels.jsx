@@ -65,9 +65,6 @@ const MyParcels = () => {
   const handleUpdate = async (id) => {
     onOpenModal()
     setParcelId(id)
-    // const  parcelData  = await axiosPublic.get(`/manageParcel/${id}`)
-    // setUpdateData(parcelData?.data)
-    // console.log("data:", updateData)
   };
 
 
@@ -80,10 +77,23 @@ const MyParcels = () => {
       confirmButtonColor: "#e11d48",
       cancelButtonColor: "#6b7280",
       confirmButtonText: "Yes, cancel it!"
-    }).then((result) => {
+    }).then(async(result) => {
       if (result.isConfirmed) {
         console.log("Cancel", id);
-        // update status logic
+        // delete parcel
+        await axiosSecure.delete(`/updateBookedParcel/update/${id}`)
+                    .then(res => {
+                      refetch()
+                        if (res.data?.deletedCount > 0) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Your parcel has been deleted!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    })
       }
     });
   };
@@ -171,13 +181,13 @@ const MyParcels = () => {
           <table className="min-w-full table-auto border border-gray-300 text-sm">
             <thead className="bg-secondaryColor">
               <tr>
-                <th className="p-2">Parcel Type</th>
-                <th className="p-2">Requested Date</th>
-                <th className="p-2">Booking Date</th>
-                <th className="p-2">Approximate Date</th>
-                <th className="p-2">Status</th>
-                <th className="p-2">Delivery Men</th>
-                <th className="p-2">Actions</th>
+                <th className="p-3">Parcel Type</th>
+                <th className="p-3">Requested Date</th>
+                <th className="p-3">Booking Date</th>
+                <th className="p-3">Approximate Date</th>
+                <th className="p-3">Status</th>
+                <th className="p-3">Delivery Men</th>
+                <th className="p-3">Actions</th>
               </tr>
             </thead>
             <tbody>

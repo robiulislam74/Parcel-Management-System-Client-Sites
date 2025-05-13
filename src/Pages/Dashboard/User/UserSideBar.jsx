@@ -24,7 +24,7 @@ const UserSideBar = () => {
                         </div>
                     </div>
                     <div>
-                        <h4 className="font-semibold text-lg text-gray-700">{user?.displayName}</h4>
+                        <h4 className="font-semibold text-lg text-gray-700 uppercase">{user?.displayName}</h4>
                         <p className="text-sm font-medium text-gray-500">User</p>
                     </div>
                 </div>

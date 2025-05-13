@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+
 import { Link, useNavigate } from 'react-router-dom';
 import GoogleLogin from '../../Shared_Files/GoogleLogin';
 import Swal from 'sweetalert2';

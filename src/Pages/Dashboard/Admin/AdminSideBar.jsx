@@ -1,5 +1,6 @@
 import { FaBoxOpen, FaUserShield, FaMotorcycle, FaChartBar, FaCog, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import UseContext from "../../../Hooks/UseContext";
+import { NavLink } from "react-router-dom";
 
 const AdminSideBar = () => {
     const { user } = UseContext();
@@ -19,7 +20,7 @@ const AdminSideBar = () => {
                         </div>
                     </div>
                     <div>
-                        <h4 className="font-semibold text-lg text-gray-700">{user?.displayName}</h4>
+                        <h4 className="font-semibold text-lg text-gray-700 uppercase">{user?.displayName}</h4>
                         <p className="text-sm font-medium text-gray-500">Admin</p>
                     </div>
                 </div>
@@ -28,22 +29,30 @@ const AdminSideBar = () => {
                 <div>
                     <p className="font-bold text-xs text-gray-500 uppercase mb-2">Main Menu</p>
                     <ul className="space-y-3">
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+                        <NavLink to={'allParcels'}>
+                            <li className="flex mb-3 text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                             <FaBoxOpen />
                             <span>All Parcels</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+                        </NavLink>
+                        <NavLink to={'allUsers'}>
+                            <li className="flex mb-3  text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                             <FaUserShield />
                             <span>All Users</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+                        </NavLink>
+                        <NavLink to={'allDeliveryMen'}>
+                            <li className="flex mb-3  text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                             <FaMotorcycle />
                             <span>All Delivery Men</span>
                         </li>
-                        <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+                        </NavLink>
+                        <NavLink to={'statistics'}>
+                            <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                             <FaChartBar />
                             <span>Statistics</span>
                         </li>
+                        </NavLink>
                     </ul>
 
                     <p className="text-gray-500 font-bold text-xs uppercase mt-6 mb-2">General</p>

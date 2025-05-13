@@ -5,6 +5,7 @@ import {
     FaStar
   } from "react-icons/fa";
   import UseContext from "../../../Hooks/UseContext";
+import { NavLink } from "react-router-dom";
   
   const DeliveryBoySideBar = () => {
     const { user } = UseContext();
@@ -27,7 +28,7 @@ import {
               </div>
             </div>
             <div>
-              <h4 className="font-semibold text-lg text-gray-700">{user?.displayName}</h4>
+              <h4 className="font-semibold text-lg text-gray-700 uppercase">{user?.displayName}</h4>
               <p className="text-sm font-medium text-gray-500">Delivery Men</p>
             </div>
           </div>
@@ -36,14 +37,18 @@ import {
           <div>
             <p className="font-bold text-xs text-gray-500 uppercase mb-2">Main Menu</p>
             <ul className="space-y-3">
-              <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+              <NavLink to={'deliveryList'}>
+                <li className="flex mb-3 text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                 <FaTruckMoving />
                 <span>My Delivery List</span>
               </li>
-              <li className="flex text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
+              </NavLink>
+              <NavLink to={'myReviews'}>
+                <li className="flex mb-3 text-lg items-center space-x-3 text-gray-700 hover:text-pinkRed transition cursor-pointer">
                 <FaStar />
                 <span>My Reviews</span>
               </li>
+              </NavLink>
             </ul>
   
             <p className="text-gray-500 font-bold text-xs uppercase mt-6 mb-2">General</p>

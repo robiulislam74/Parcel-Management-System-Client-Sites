@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import UseContext from "../Hooks/UseContext";
 import Button from "./Button";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 
 const ParcelUpdateForm = ({ parcels, id,refetch,onCloseModal }) => {
     const { user } = UseContext()
+    const axiosSecure = useAxiosSecure()
     const [price, setPrice] = useState(0);
 
     const {
@@ -29,6 +30,7 @@ const ParcelUpdateForm = ({ parcels, id,refetch,onCloseModal }) => {
         else setPrice(0);
     }, [weight]);
 
+    // Update parcel Info
     const onSubmit = async (data) => {
         const updateInfo = {
             ...data,
@@ -38,8 +40,8 @@ const ParcelUpdateForm = ({ parcels, id,refetch,onCloseModal }) => {
             bookingDate: new Date().toLocaleDateString(),
             status: "Pending"
         };
-        // Send bookingData to backend 
-        await axios.patch(`${import.meta.env.VITE_API_URL}/updateBookedParcel/update/${id}`, updateInfo)
+        // Updated bookingData to backend 
+        await axiosSecure.patch(`/updateBookedParcel/update/${id}`, updateInfo)
             .then(res => {
                 refetch()
                 onCloseModal()
@@ -57,6 +59,7 @@ const ParcelUpdateForm = ({ parcels, id,refetch,onCloseModal }) => {
 
         reset();
     };
+    
 
     const filterData = parcels.find(item => item._id == id)
 

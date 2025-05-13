@@ -15,7 +15,7 @@ const Registration = () => {
   const { createSignUp } = UseContext()
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
-
+  const [uid,setUid] = useState('')
   const now = new Date();
   const formattedDate = format(now, "yyyy-MM-dd"); 
 
@@ -29,16 +29,18 @@ const Registration = () => {
       email: registerData.email,
       photoURL: registerData.photoURL,
       role: userType,
-      date: formattedDate
+      date: formattedDate,
+      uid: uid
 
     }
     console.log("userInfo:",userInfo)
 
     createSignUp(registerData.email, registerData.password)
-      .then((userCredential) => {
-        updateProfile(auth.currentUser, {
+      .then(async(userCredential) => {
+         setUid(userCredential?.user?.uid)
+       await updateProfile(auth.currentUser, {
           displayName: registerData.name,
-          photoURL: registerData.photoURL
+          photoURL: registerData.photoURL,
         }).then(async () => {
           await axiosPublic.post('/users',userInfo)
           Swal.fire({
@@ -55,6 +57,7 @@ const Registration = () => {
         });
 
         console.log("Registeration Successfull:", user)
+        
       })
       .catch((error) => {
         const errorCode = error.code;
