@@ -4,11 +4,27 @@ import { useQuery } from '@tanstack/react-query'
 import useAxiosPublic from '../../../Hooks/useAxiosPublic'
 import useAxiosSecure from '../../../Hooks/useAxiosSecure'
 import Swal from 'sweetalert2'
+import Modal from 'react-responsive-modal'
+import { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import io from 'socket.io-client';
+import 'leaflet/dist/leaflet.css';
+import RecenterMap from '../../../components/RecenterMap'
+import { SlLocationPin } from 'react-icons/sl'
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const MyDeliveryList = () => {
   const axiosPublic = useAxiosPublic()
   const axiosSecure = useAxiosSecure()
   const { user } = UseContext()
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+  // const [position, setPosition] = useState([23.160554583304265, 89.20188905087441]);
+  const [latitude,setLatitude]=useState(null)
+  const [longitude,setLongitude]=useState(null)
+
+  const position = [latitude,longitude]
 
   const { data: singleUser } = useQuery({
     queryKey: ['user'],
@@ -20,14 +36,23 @@ const MyDeliveryList = () => {
 
 
   const { data: deliveryList } = useQuery({
-    queryKey: ['deliveryList',singleUser?._id],
+    queryKey: ['deliveryList', singleUser?._id],
     enabled: !!singleUser?._id,
     queryFn: async () => {
       const res = await axiosPublic.get(`/deliveryMenParcel/${singleUser?._id}`)
       return res?.data
     }
   })
-  // console.log("parcel:",deliveryMenParcel)
+
+  // View Location btn control
+  const handleLocationBtn =async (id) => {
+    onOpenModal()
+    await axiosSecure.get(`/singleParcel/${id}`)
+    .then((res)=>{
+      setLatitude(parseFloat(res.data.latitude))
+      setLongitude(parseFloat(res.data.longitude))
+    })
+  }
 
   // Parcel Cancelled
   const handleCancelBtn = async (id) => {
@@ -121,9 +146,53 @@ const MyDeliveryList = () => {
                   <td className="px-3 md:px-4 py-2 border">{parcel.receiverPhone}</td>
                   <td className="px-3 md:px-4 py-2 border">{parcel.deliveryAddress}</td>
                   <td className="px-3 md:px-4 py-2 border space-y-2 flex flex-col items-center">
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full">
+                    {/* Modal */}
+                    <Modal
+                      open={open}
+                      onClose={onCloseModal}
+                      center
+                      styles={{
+                        modal: {
+                          width: '70vw',
+                          height: '90vh',
+                          maxWidth: '70vw',
+                          margin: 0,
+                          borderRadius: 8,
+                        },
+                      }}
+                    // 23.160554583304265, 89.20188905087441 MM
+                    // 23.177413234761673, 89.16069252339092 Airport
+                    // 22.9829225722106, 89.16238498713096 Rajgonj,Monirampu
+                    // 23.039328906038243, 88.89820222203436 Banapal
+                    >
+                      <MapContainer center={position} zoom={10} style={{ height: '100%', width: '100%' }}>
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        {/* <RecenterMap lat={position[0]} lng={position[1]} /> */}
+                        {/* {Object.entries(locations).map(([id, loc]) => ( */}
+                        <Marker position={position}>
+                          <Popup>DeliveryMan ID: </Popup>
+                        </Marker>
+                        {/* // ))} */}
+                      </MapContainer>
+                    </Modal>
+                    {/* <button onClick={() => handleLocationBtn(parcel._id)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full">
                       View Location
+                    </button> */}
+                    <button onClick={() => handleLocationBtn(parcel._id)} className="text-2xl text-blue-600">
+                      <SlLocationPin data-tooltip-id="my-tooltip-2" />
                     </button>
+                    <ReactTooltip
+                      id="my-tooltip-2"
+                      place="left"
+                      content="View Location"
+                      style={{
+                        backgroundColor: '#2f2937', // Tailwind gray-800
+                        color: '#ffffff',
+                        borderRadius: '6px',
+                        padding: '8px 12px',
+                        fontSize: '14px',
+                      }}
+                    />
                     <button
                       disabled={parcel.status == 'Cancelled'}
                       onClick={() => handleCancelBtn(parcel._id)} className={` ${parcel.status !== 'Cancelled' ? "bg-pinkRed hover:bg-red-500" : "bg-gray-400 cursor-not-allowed"} ${parcel.status == "Delivered" && 'hidden'} text-white px-3 py-1 rounded w-full`}>
