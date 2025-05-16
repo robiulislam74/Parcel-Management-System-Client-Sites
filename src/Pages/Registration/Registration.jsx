@@ -52,7 +52,7 @@ const Registration = () => {
           // ...
         });
 
-        console.log("Registeration Successfull:", user)
+        // console.log("Registeration Successfull:", user)
         
       })
       .catch((error) => {

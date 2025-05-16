@@ -66,8 +66,10 @@ const AllParcels = () => {
           />
         }
       </Modal>
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">All Booked Parcels</h2>
+      <div className="p-8">
+        <div className='text-center'>
+          <h2 className="text-2xl font-bold mb-4">All Booked Parcels</h2>
+        </div>
         <div className="overflow-x-auto rounded-lg shadow-md">
           <table className="min-w-full text-sm text-left text-gray-700 bg-white border">
             <thead className="bg-gray-100 text-gray-800 uppercase text-xs">

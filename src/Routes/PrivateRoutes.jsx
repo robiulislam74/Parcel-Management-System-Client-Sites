@@ -8,7 +8,7 @@ const PrivateRoutes = ({children}) => {
     const {user,loading} = UseContext()
 
     if(loading){
-        return <div className='min-h-[calc(100vh-88px)] flex justify-center items-center'>
+        return <div className='min-h-[calc(100vh-88px)] flex justify-center items-center mx-auto'>
           <ColorRing
           visible={true}
           height="80"

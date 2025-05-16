@@ -38,7 +38,7 @@ const BookAParcel = () => {
       bookingDate: new Date().toLocaleDateString(),
       status: "Pending"
     };
-    console.log("Parcel Booked:", bookingData);
+    // console.log("Parcel Booked:", bookingData);
     // Send bookingData to backend 
     const res = await axiosPublic.post('/bookedParcel', bookingData)
 

@@ -12,7 +12,7 @@ const MainDashboardLayOut = () => {
         <div className='3/12 bg-white min-h-screen  shadow-md'>
         <Sidebar/>
         </div>
-        <Outlet/>
+          <Outlet/>
     </div>
     <Footer/>
     </>

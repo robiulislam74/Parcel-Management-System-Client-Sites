@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    // baseURL: 'https://parcel-management-system-server-sites-2.onrender.com',
+    baseURL: 'http://localhost:5000',
 })
 const useAxiosSecure = () => {
     const navigate = useNavigate()

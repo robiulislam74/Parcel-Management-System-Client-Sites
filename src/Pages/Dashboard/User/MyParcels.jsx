@@ -59,7 +59,7 @@ const MyParcels = () => {
       price,
       status: "Pending"
     };
-    console.log("Parcel Booked:", bookingData);
+    // console.log("Parcel Booked:", bookingData);
   }
 
   const handleUpdate = async (id) => {
@@ -79,7 +79,7 @@ const MyParcels = () => {
       confirmButtonText: "Yes, cancel it!"
     }).then(async(result) => {
       if (result.isConfirmed) {
-        console.log("Cancel", id);
+        // console.log("Cancel", id);
         // delete parcel
         await axiosSecure.delete(`/updateBookedParcel/update/${id}`)
                     .then(res => {
@@ -99,12 +99,12 @@ const MyParcels = () => {
   };
 
   const handleReview = (id) => {
-    console.log("Review", id);
+    // console.log("Review", id);
     // redirect to review form
   };
 
   const handlePay = (id) => {
-    console.log("Pay", id);
+    // console.log("Pay", id);
     // trigger payment logic
   };
 
@@ -196,7 +196,7 @@ const MyParcels = () => {
                   <td className="p-2">{parcel.parcelType}</td>
                   <td className="p-2">{parcel.deliveryDate}</td>
                   <td className="p-2">{parcel.bookingDate}</td>
-                  <td className="p-2">{parcel?.approximateDate || "Not Assigned"}</td>
+                  <td className="p-2">{parcel?.approxDate || "Not Assigned"}</td>
                   <td className={`p-2 text-sm font-medium capitalize ${parcel.status === "Pending"
                         ? " text-yellow-800"
                         : " text-green-800"

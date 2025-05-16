@@ -32,11 +32,11 @@ const GoogleLogin = () => {
           role: "User"
         }
         await axiosPublic.post('/users',userInfo).then(user=>{
-          console.log('user',user)
+          // console.log('user',user)
         })
 
       }).catch((error)=>{
-        console.log("ErrorNew:",error)
+        // console.log("ErrorNew:",error)
       })
       
     }
