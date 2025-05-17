@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import ParcelUpdateForm from "../../../components/ParcelUpdateForm";
 import { ColorRing } from "react-loader-spinner";
+import ReviewModal from "../../../components/ReviewModal";
 
 
 const MyParcels = () => {
@@ -19,9 +20,13 @@ const MyParcels = () => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const [open2, setOpen2] = useState(false);
+  const onOpenModal2 = () => setOpen2(true);
+  const onCloseModal2 = () => setOpen2(false);
   const [price, setPrice] = useState(0);
   // const [updateData,setUpdateData] = useState([])
   const [parcelId, setParcelId] = useState('')
+  const [deliveryMenId,setDeliveryMenId] =useState('')
 
 
   const { data: bookedAllParcels, isLoading,refetch } = useQuery({
@@ -99,8 +104,9 @@ const MyParcels = () => {
   };
 
   const handleReview = (id) => {
-    // console.log("Review", id);
-    // redirect to review form
+    console.log("Review", deliveryMenId);
+    setDeliveryMenId(id)
+    onOpenModal2()
   };
 
   const handlePay = (id) => {
@@ -128,7 +134,7 @@ const MyParcels = () => {
     </div>
     }
     <>
-      {/* Modal */}
+      {/*Update Modal */}
       <Modal
         open={open}
         onClose={onCloseModal}
@@ -160,6 +166,30 @@ const MyParcels = () => {
             onCloseModal={onCloseModal}
           />
         }
+      </Modal>
+
+      {/*Reviews Modal2 */}
+      <Modal
+        open={open2}
+        onClose={onCloseModal2}
+        center
+        styles={{
+          modal: {
+            width: '50vw',
+            height: '90vh',
+            maxWidth: '50vw',
+            padding: 16,
+            margin: 0,
+            borderRadius: 8,
+          },
+        }}
+
+      >
+        <ReviewModal
+        user={user}
+        deliveryManId={deliveryMenId}
+        onClose={onCloseModal2}
+        />
       </Modal>
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
@@ -221,7 +251,7 @@ const MyParcels = () => {
 
                     {parcel?.status === "Delivered" && (
                       <button
-                        onClick={() => handleReview(parcel._id)}
+                        onClick={() => handleReview(parcel.deliveryMenId)}
                         className="px-2 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs"
                       >
                         Review

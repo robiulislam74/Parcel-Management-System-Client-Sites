@@ -12,6 +12,7 @@ import 'leaflet/dist/leaflet.css';
 import RecenterMap from '../../../components/RecenterMap'
 import { SlLocationPin } from 'react-icons/sl'
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { ColorRing } from 'react-loader-spinner'
 
 const MyDeliveryList = () => {
   const axiosPublic = useAxiosPublic()
@@ -20,11 +21,13 @@ const MyDeliveryList = () => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-  // const [position, setPosition] = useState([23.160554583304265, 89.20188905087441]);
-  const [latitude,setLatitude]=useState(null)
-  const [longitude,setLongitude]=useState(null)
+  const[deliveryParcel,setDeliveryParcel]=useState(null)
+  const [latitude, setLatitude] = useState(null)
+  const [longitude, setLongitude] = useState(null)
 
-  const position = [latitude,longitude]
+  const position = [latitude, longitude]
+  console.log("position:", position)
+
 
   const { data: singleUser } = useQuery({
     queryKey: ['user'],
@@ -35,7 +38,7 @@ const MyDeliveryList = () => {
   })
 
 
-  const { data: deliveryList } = useQuery({
+  const { data: deliveryList,refetch } = useQuery({
     queryKey: ['deliveryList', singleUser?._id],
     enabled: !!singleUser?._id,
     queryFn: async () => {
@@ -45,13 +48,27 @@ const MyDeliveryList = () => {
   })
 
   // View Location btn control
-  const handleLocationBtn =async (id) => {
+  const handleLocationBtn = async (id) => {
     onOpenModal()
     await axiosSecure.get(`/singleParcel/${id}`)
-    .then((res)=>{
-      setLatitude(parseFloat(res.data.latitude))
-      setLongitude(parseFloat(res.data.longitude))
-    })
+      .then((res) => {
+        setDeliveryParcel(res.data)
+        setLatitude(parseFloat(res.data.latitude))
+        setLongitude(parseFloat(res.data.longitude))
+      })
+    if (!latitude && !longitude) {
+      return <div className='min-h-[calc(100vh-88px)] flex justify-center items-center mx-auto'>
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      </div>;
+    }
   }
 
   // Parcel Cancelled
@@ -103,6 +120,7 @@ const MyDeliveryList = () => {
                 icon: "success"
               });
             }
+            refetch()
           })
 
 
@@ -165,15 +183,20 @@ const MyDeliveryList = () => {
                     // 22.9829225722106, 89.16238498713096 Rajgonj,Monirampu
                     // 23.039328906038243, 88.89820222203436 Banapal
                     >
-                      <MapContainer center={position} zoom={10} style={{ height: '100%', width: '100%' }}>
-                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                        {/* <RecenterMap lat={position[0]} lng={position[1]} /> */}
-                        {/* {Object.entries(locations).map(([id, loc]) => ( */}
-                        <Marker position={position}>
-                          <Popup>DeliveryMan ID: </Popup>
-                        </Marker>
-                        {/* // ))} */}
-                      </MapContainer>
+                      {
+                        (latitude && longitude) && (
+
+                          <MapContainer center={position} zoom={10} style={{ height: '100%', width: '100%' }}>
+                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                            {/* <RecenterMap lat={position[0]} lng={position[1]} /> */}
+                            {/* {Object.entries(locations).map(([id, loc]) => ( */}
+                            <Marker position={position}>
+                              <Popup>Receiver Address:<br/>{deliveryParcel?.deliveryAddress}</Popup>
+                            </Marker>
+                            {/* // ))} */}
+                          </MapContainer>
+                        )
+                      }
                     </Modal>
                     {/* <button onClick={() => handleLocationBtn(parcel._id)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded w-full">
                       View Location
